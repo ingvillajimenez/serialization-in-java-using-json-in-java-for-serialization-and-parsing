@@ -1,5 +1,10 @@
 {
   "gender": null,
+  "contact": {
+    "address": "1234, 14th Street, New York, NY-10011",
+    "phone": "212-555-3421",
+    "email": "peter@gmail.com"
+  },
   "name": "Peter",
   "title": "Vice President",
   "salary": 122000,
