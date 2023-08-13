@@ -5,78 +5,178 @@ import org.json.JSONObject; // class JSONObject
 
 import java.io.FileWriter; // class FileWriter
 import java.io.IOException; // class IOException
-import java.nio.file.Files; // final class Files
-import java.nio.file.Paths; // final class Paths
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        String employeeString = new String(Files.readAllBytes(Paths.get("employees.json")));
+        JSONObject employeeJson = new JSONObject();
 
-        JSONArray employeesJson = new JSONArray(employeeString);
+        employeeJson.put("name", "Peter");
+        employeeJson.put("age", 42);
+        employeeJson.put("gender", "Male");
+        employeeJson.put("title", "Vice President");
+        employeeJson.put("salary", 122000);
 
-        for (int i = 0; i < employeesJson.length(); i++) {
+        employeeJson.append("email", "peter.piper@gmail.com");
+        employeeJson.append("email", "peter@shawco.com");
+        employeeJson.append("email", "peter@hotmail.com");
 
-            JSONObject employeeJson = employeesJson.getJSONObject(i);
+        System.out.println(employeeJson.toString(2));
+        //{
+        //  "gender": "Male",
+        //  "name": "Peter",
+        //  "title": "Vice President",
+        //  "salary": 122000,
+        //  "age": 42,
+        //  "email": [
+        //    "peter.piper@gmail.com",
+        //    "peter@shawco.com",
+        //    "peter@hotmail.com"
+        //  ]
+        //}
 
-            String name = employeeJson.getString("name");
-            String title = employeeJson.getString("title");
-            double salary = employeeJson.getDouble("salary");
-
-            System.out.format("\n***\n%s, %s, %.1f\n", name, title, salary);
-            //***
-            //Peter, Vice President, 122000.0
-            //***
-            //Donna, Tech Lead, 108000.0
-
-            int age = employeeJson.optInt("age");
-            String gender = employeeJson.optString("gender");
-
-            System.out.format("%d, %s\n", age, gender);
-            //42,
-            //0,
+        try (FileWriter file = new FileWriter("employee.json")) {
+            employeeJson.write(file, 2, 0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-//        JSONObject employeeJson1 = new JSONObject();
+//        JSONObject employeeJson = new JSONObject();
 //
-//        employeeJson1.put("name", "Peter");
-//        employeeJson1.put("age", 42);
-//        employeeJson1.put("gender", JSONObject.NULL);
-//        employeeJson1.put("title", "Vice President");
-//        employeeJson1.put("salary", 122000);
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
 //
-//        JSONObject employeeJson2 = new JSONObject();
+//        employeeJson.append("email", "peter.piper@gmail.com");
 //
-//        employeeJson2.put("name", "Donna");
-//        employeeJson2.put("title", "Tech Lead");
-//        employeeJson2.put("salary", 108000);
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": ["peter.piper@gmail.com"]
+//        //}
+
+//        JSONObject employeeJson = new JSONObject();
 //
-//        JSONArray employeesArray = new JSONArray();
-//        employeesArray.put(employeeJson1);
-//        employeesArray.put(employeeJson2);
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
 //
-//        System.out.println(employeesArray.toString(2));
-//        //[
-//        //  {
-//        //    "gender": null,
-//        //    "name": "Peter",
-//        //    "title": "Vice President",
-//        //    "salary": 122000,
-//        //    "age": 42
-//        //  },
-//        //  {
-//        //    "name": "Donna",
-//        //    "title": "Tech Lead",
-//        //    "salary": 108000
-//        //  }
-//        //]
+//        employeeJson.accumulate("email", "peter.piper@gmail.com");
+//        employeeJson.accumulate("email", "peter@shawco.com");
+//        employeeJson.accumulate("email", "peter@hotmail.com");
 //
-//        try (FileWriter file = new FileWriter("employees.json")) {
-//            employeesArray.write(file, 2, 0);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": [
+//        //    "peter.piper@gmail.com",
+//        //    "peter@shawco.com",
+//        //    "peter@hotmail.com"
+//        //  ]
+//        //}
+
+//        JSONObject employeeJson = new JSONObject();
+//
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
+//
+//        employeeJson.accumulate("email", "peter.piper@gmail.com");
+//
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": "peter.piper@gmail.com"
+//        //}
+
+//        JSONObject employeeJson = new JSONObject();
+//
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
+//
+//        employeeJson.put("email", "peter.piper@gmail.com");
+//        employeeJson.put("email", "peter@shawco.com");
+//        employeeJson.put("email", "peter@hotmail.com");
+//
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": "peter@hotmail.com"
+//        //}
+
+//        JSONObject employeeJson = new JSONObject();
+//
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
+//
+//        employeeJson.put("email", "peter.piper@gmail.com");
+//
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": "peter.piper@gmail.com"
+//        //}
+
+//        JSONObject employeeJson = new JSONObject();
+//
+//        employeeJson.put("name", "Peter");
+//        employeeJson.put("age", 42);
+//        employeeJson.put("gender", "Male");
+//        employeeJson.put("title", "Vice President");
+//        employeeJson.put("salary", 122000);
+//
+//        JSONArray emailArray = new JSONArray();
+//        emailArray.put("peter.piper@gmail.com");
+//        emailArray.put("peter@shawco.com");
+//
+//        employeeJson.put("email", emailArray);
+//
+//        System.out.println(employeeJson.toString(2));
+//        //{
+//        //  "gender": "Male",
+//        //  "name": "Peter",
+//        //  "title": "Vice President",
+//        //  "salary": 122000,
+//        //  "age": 42,
+//        //  "email": [
+//        //    "peter.piper@gmail.com",
+//        //    "peter@shawco.com"
+//        //  ]
+//        //}
+
     }
 }
 
