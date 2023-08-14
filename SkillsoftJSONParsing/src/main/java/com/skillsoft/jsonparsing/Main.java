@@ -2,104 +2,158 @@ package com.skillsoft.jsonparsing;
 
 import org.json.CDL; // class CDL
 import org.json.JSONArray; // class JSONArray
-import org.json.JSONTokener; // class JSONTokener
-import org.json.JSONObject; // class JSONObject
+
+import java.io.FileWriter; // class FileWriter
+import java.io.IOException; // class IOException
+import java.nio.file.Files; // final class Files
+import java.nio.file.Paths; // final class Paths
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        String commaDelimitedText = "name, age, gender \n" +
-                "Peter, 42, male \n" +
-                "Jane, 22, female \n" +
-                "Ophelia, 25,  \n" +
-                "Bob, 33, male";
+        String commaDelimitedLoans = new String(Files.readAllBytes(
+                Paths.get("loans_with_header.csv")));
 
-        JSONArray array = CDL.toJSONArray(commaDelimitedText);
+        JSONArray loansArray = CDL.toJSONArray(commaDelimitedLoans);
 
-        System.out.println(array.toString(2));
-
+        System.out.println(loansArray.toString(2));
         //[
         //  {
-        //    "name": "Peter",
-        //    "gender": "male",
-        //    "age": "42"
+        //    "LoanAmount": "313544",
+        //    "CreditBalance": "195985",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "c89ed2cc",
+        //    "Term": "Short Term",
+        //    "CreditScore": "716.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "1353940.0"
         //  },
         //  {
-        //    "name": "Jane",
-        //    "gender": "female",
-        //    "age": "22"
+        //    "LoanAmount": "216546",
+        //    "CreditBalance": "236607",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "56eb2ec2",
+        //    "Term": "Short Term",
+        //    "CreditScore": "742.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "2244204.0"
         //  },
         //  {
-        //    "name": "Ophelia",
-        //    "gender": "",
-        //    "age": "25"
+        //    "LoanAmount": "359524",
+        //    "CreditBalance": "552615",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "ecd98acd",
+        //    "Term": "Long Term",
+        //    "CreditScore": "691.0",
+        //    "Home": "Own Home",
+        //    "AnnualIncome": "2076510.0"
         //  },
         //  {
-        //    "name": "Bob",
-        //    "gender": "male",
-        //    "age": "33"
+        //    "LoanAmount": "99999999",
+        //    "CreditBalance": "237481",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "43611baf",
+        //    "Term": "Short Term",
+        //    "CreditScore": "745.0",
+        //    "Home": "Rent",
+        //    "AnnualIncome": "1277712.0"
+        //  },
+        //  {
+        //    "LoanAmount": "349712",
+        //    "CreditBalance": "265677",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "c5492dad",
+        //    "Term": "Short Term",
+        //    "CreditScore": "710.0",
+        //    "Home": "Rent",
+        //    "AnnualIncome": "1284210.0"
+        //  },
+        //  {
+        //    "LoanAmount": "241626",
+        //    "CreditBalance": "496033",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "7106fffa",
+        //    "Term": "Long Term",
+        //    "CreditScore": "660.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "738188.0"
+        //  },
+        //  {
+        //    "LoanAmount": "201564",
+        //    "CreditBalance": "307876",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "d7769953",
+        //    "Term": "Short Term",
+        //    "CreditScore": "741.0",
+        //    "Home": "Rent",
+        //    "AnnualIncome": "580260.0"
+        //  },
+        //  {
+        //    "LoanAmount": "608542",
+        //    "CreditBalance": "879263",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "b50fba9a",
+        //    "Term": "Short Term",
+        //    "CreditScore": "746.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "7883442.0"
+        //  },
+        //  {
+        //    "LoanAmount": "511456",
+        //    "CreditBalance": "579481",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "bb11d181",
+        //    "Term": "Short Term",
+        //    "CreditScore": "704.0",
+        //    "Home": "Rent",
+        //    "AnnualIncome": "1632442.0"
+        //  },
+        //  {
+        //    "LoanAmount": "99999999",
+        //    "CreditBalance": "499776",
+        //    "LoanStatus": "Fully Paid",
+        //    "ID": "570da3a0",
+        //    "Term": "Short Term",
+        //    "CreditScore": "733.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "2274756.0"
+        //  },
+        //  {
+        //    "LoanAmount": "289476",
+        //    "CreditBalance": "93746",
+        //    "LoanStatus": "Charged Off",
+        //    "ID": "2083c408",
+        //    "Term": "Long Term",
+        //    "CreditScore": "668.0",
+        //    "Home": "Home Mortgage",
+        //    "AnnualIncome": "945155.0"
         //  }
         //]
+
+        try (FileWriter file = new FileWriter("loans_with_header.json")) {
+            loansArray.write(file, 2, 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 //        JSONArray headerArray = new JSONArray();
 //
-//        headerArray.put("name");
-//        headerArray.put("age");
-//        headerArray.put("gender");
+//        headerArray.put("ID");
+//        headerArray.put("LoanStatus");
+//        headerArray.put("LoanAmount");
+//        headerArray.put("Term");
+//        headerArray.put("CreditScore");
+//        headerArray.put("AnnualIncome");
+//        headerArray.put("Home");
+//        headerArray.put("CreditBalance");
 //
-//        String commaDelimitedText = "Peter, 42, male \n" +
-//                "Jane, 22, female \n" +
-//                "Ophelia, 25, null \n" +
-//                "Bob, 33, male";
+//        String commaDelimitedLoans = new String(Files.readAllBytes(Paths.get("loans.csv")));
 //
-//        JSONArray array = CDL.toJSONArray(headerArray, commaDelimitedText);
+//        JSONArray loansArray = CDL.toJSONArray(headerArray, commaDelimitedLoans);
 //
-//        System.out.println(array.toString(2));
-        //[
-        //  {
-        //    "name": "Peter",
-        //    "gender": "male",
-        //    "age": "42"
-        //  },
-        //  {
-        //    "name": "Jane",
-        //    "gender": "female",
-        //    "age": "22"
-        //  },
-        //  {
-        //    "name": "Ophelia",
-        //    "gender": "null",
-        //    "age": "25"
-        //  },
-        //  {
-        //    "name": "Bob",
-        //    "gender": "male",
-        //    "age": "33"
-        //  }
-        //]
-
-//        JSONArray fieldsArray = CDL.rowToJSONArray(new JSONTokener(
-//                "ID, LoanStatus, LoanAmount, Term, CreditScore, AnnualIncome, Home, CreditBalance"));
-//
-//        System.out.println(fieldsArray);
-//        //["ID","LoanStatus","LoanAmount","Term","CreditScore","AnnualIncome","Home","CreditBalance"]
-//
-//        JSONObject loanJson1 = CDL.rowToJSONObject(fieldsArray, new JSONTokener(
-//                "c89ed2cc, Fully Paid, 313544, Short Term, 716.0, 1353940.0, Home Mortgage, 195985"));
-//
-//        JSONObject loanJson2 = CDL.rowToJSONObject(fieldsArray, new JSONTokener(
-//                "dbf1d5da, Charged Off, 342518, Long Term, 616.0, 1404195.0, Own Home, 621509"));
-//        JSONObject loanJson3 = CDL.rowToJSONObject(fieldsArray, new JSONTokener(
-//                "bcbf02c0, Fully Paid, 176880, Short Term, 724.0, 668325.0, Rent, 342532"));
-//
-//        JSONObject loansJson = new JSONObject();
-//        loansJson.append("loans", loanJson1);
-//        loansJson.append("loans", loanJson2);
-//        loansJson.append("loans", loanJson3);
-//
-//        System.out.println(loansJson.toString(2));
-//        //{"loans": [
+//        System.out.println(loansArray.toString(2));
+//        //[
 //        //  {
 //        //    "LoanAmount": "313544",
 //        //    "CreditBalance": "195985",
@@ -111,67 +165,112 @@ public class Main {
 //        //    "AnnualIncome": "1353940.0"
 //        //  },
 //        //  {
-//        //    "LoanAmount": "342518",
-//        //    "CreditBalance": "621509",
-//        //    "LoanStatus": "Charged Off",
-//        //    "ID": "dbf1d5da",
-//        //    "Term": "Long Term",
-//        //    "CreditScore": "616.0",
-//        //    "Home": "Own Home",
-//        //    "AnnualIncome": "1404195.0"
+//        //    "LoanAmount": "216546",
+//        //    "CreditBalance": "236607",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "56eb2ec2",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "742.0",
+//        //    "Home": "Home Mortgage",
+//        //    "AnnualIncome": "2244204.0"
 //        //  },
 //        //  {
-//        //    "LoanAmount": "176880",
-//        //    "CreditBalance": "342532",
+//        //    "LoanAmount": "359524",
+//        //    "CreditBalance": "552615",
 //        //    "LoanStatus": "Fully Paid",
-//        //    "ID": "bcbf02c0",
+//        //    "ID": "ecd98acd",
+//        //    "Term": "Long Term",
+//        //    "CreditScore": "691.0",
+//        //    "Home": "Own Home",
+//        //    "AnnualIncome": "2076510.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "99999999",
+//        //    "CreditBalance": "237481",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "43611baf",
 //        //    "Term": "Short Term",
-//        //    "CreditScore": "724.0",
+//        //    "CreditScore": "745.0",
 //        //    "Home": "Rent",
-//        //    "AnnualIncome": "668325.0"
+//        //    "AnnualIncome": "1277712.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "349712",
+//        //    "CreditBalance": "265677",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "c5492dad",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "710.0",
+//        //    "Home": "Rent",
+//        //    "AnnualIncome": "1284210.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "241626",
+//        //    "CreditBalance": "496033",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "7106fffa",
+//        //    "Term": "Long Term",
+//        //    "CreditScore": "660.0",
+//        //    "Home": "Home Mortgage",
+//        //    "AnnualIncome": "738188.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "201564",
+//        //    "CreditBalance": "307876",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "d7769953",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "741.0",
+//        //    "Home": "Rent",
+//        //    "AnnualIncome": "580260.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "608542",
+//        //    "CreditBalance": "879263",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "b50fba9a",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "746.0",
+//        //    "Home": "Home Mortgage",
+//        //    "AnnualIncome": "7883442.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "511456",
+//        //    "CreditBalance": "579481",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "bb11d181",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "704.0",
+//        //    "Home": "Rent",
+//        //    "AnnualIncome": "1632442.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "99999999",
+//        //    "CreditBalance": "499776",
+//        //    "LoanStatus": "Fully Paid",
+//        //    "ID": "570da3a0",
+//        //    "Term": "Short Term",
+//        //    "CreditScore": "733.0",
+//        //    "Home": "Home Mortgage",
+//        //    "AnnualIncome": "2274756.0"
+//        //  },
+//        //  {
+//        //    "LoanAmount": "289476",
+//        //    "CreditBalance": "93746",
+//        //    "LoanStatus": "Charged Off",
+//        //    "ID": "2083c408",
+//        //    "Term": "Long Term",
+//        //    "CreditScore": "668.0",
+//        //    "Home": "Home Mortgage",
+//        //    "AnnualIncome": "945155.0"
 //        //  }
-//        //]}
-
-//        JSONArray fieldsArray = CDL.rowToJSONArray(new JSONTokener(
-//                "ID, LoanStatus, LoanAmount, Term, CreditScore, AnnualIncome, Home, CreditBalance"));
+//        //]
 //
-//        System.out.println(fieldsArray);
-//        //["ID","LoanStatus","LoanAmount","Term","CreditScore","AnnualIncome","Home","CreditBalance"]
-//
-//        JSONObject loadJson = CDL.rowToJSONObject(fieldsArray, new JSONTokener(
-//                "c89ed2cc, Fully Paid, 313544, Short Term, 716.0, 1353940.0, Home Mortgage, 195985"));
-//
-//        System.out.println(loadJson.toString(2));
-//        //{
-//        //  "LoanAmount": "313544",
-//        //  "CreditBalance": "195985",
-//        //  "LoanStatus": "Fully Paid",
-//        //  "ID": "c89ed2cc",
-//        //  "Term": "Short Term",
-//        //  "CreditScore": "716.0",
-//        //  "Home": "Home Mortgage",
-//        //  "AnnualIncome": "1353940.0"
-//        //}
-
-//        JSONObject studentsJson = new JSONObject();
-//
-//        JSONArray namesArray = CDL.rowToJSONArray(new JSONTokener("Peter, Jane, Bob, Nora, Hannah"));
-//
-//        studentsJson.put("names", namesArray);
-//
-//        System.out.println(studentsJson.toString(2));
-//        //{"names": [
-//        //  "Peter",
-//        //  "Jane",
-//        //  "Bob",
-//        //  "Nora",
-//        //  "Hannah"
-//        //]}
-
-//        JSONArray namesArray = CDL.rowToJSONArray(new JSONTokener("Peter, Jane, Bob, Nora, Hannah"));
-//
-//        System.out.println(namesArray);
-//        //["Peter","Jane","Bob","Nora","Hannah"]
+//        try (FileWriter file = new FileWriter("loans.json")) {
+//            loansArray.write(file, 2, 0);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
 
