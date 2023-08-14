@@ -1,6 +1,8 @@
 package com.skillsoft.jsonparsing;
 
 import java.math.BigInteger; // class BigInteger
+import java.util.Arrays; // class Arrays
+import java.util.List; // interface List
 
 public class EmployeeBean {
 
@@ -9,6 +11,26 @@ public class EmployeeBean {
     private String title;
     private double salary;
     private int age;
+    private boolean active;
+
+//    private CommitteeBean committee;
+//    private List<CommitteeBean> committees;
+//
+//    public List<CommitteeBean> getCommittees() {
+//        return committees;
+//    }
+//
+//    public void setCommittees(CommitteeBean... committees) {
+//        this.committees = Arrays.asList(committees);
+//    }
+//
+//    public CommitteeBean getCommittee() {
+//        return committee;
+//    }
+//
+//    public void setCommittee(CommitteeBean committee) {
+//        this.committee = committee;
+//    }
 
     public EmployeeBean() {
     }
@@ -61,4 +83,11 @@ public class EmployeeBean {
         this.age = age;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
