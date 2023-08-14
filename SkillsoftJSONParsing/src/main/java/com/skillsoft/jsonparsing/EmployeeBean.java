@@ -1,8 +1,9 @@
 package com.skillsoft.jsonparsing;
 
+import org.json.JSONPropertyName; // @interface JSONPropertyName
+import org.json.JSONPropertyIgnore; // @interface JSONPropertyIgnore
+
 import java.math.BigInteger; // class BigInteger
-import java.util.Arrays; // class Arrays
-import java.util.List; // interface List
 
 public class EmployeeBean {
 
@@ -11,26 +12,6 @@ public class EmployeeBean {
     private String title;
     private double salary;
     private int age;
-    private boolean active;
-
-//    private CommitteeBean committee;
-//    private List<CommitteeBean> committees;
-//
-//    public List<CommitteeBean> getCommittees() {
-//        return committees;
-//    }
-//
-//    public void setCommittees(CommitteeBean... committees) {
-//        this.committees = Arrays.asList(committees);
-//    }
-//
-//    public CommitteeBean getCommittee() {
-//        return committee;
-//    }
-//
-//    public void setCommittee(CommitteeBean committee) {
-//        this.committee = committee;
-//    }
 
     public EmployeeBean() {
     }
@@ -43,6 +24,7 @@ public class EmployeeBean {
         this.age = age;
     }
 
+    @JSONPropertyName("employee_id")
     public BigInteger getId() {
         return id;
     }
@@ -51,6 +33,7 @@ public class EmployeeBean {
         this.id = id;
     }
 
+    @JSONPropertyName("full_name")
     public String getName() {
         return name;
     }
@@ -59,6 +42,7 @@ public class EmployeeBean {
         this.name = name;
     }
 
+    @JSONPropertyName("designation")
     public String getTitle() {
         return title;
     }
@@ -67,6 +51,7 @@ public class EmployeeBean {
         this.title = title;
     }
 
+    @JSONPropertyIgnore
     public double getSalary() {
         return salary;
     }
@@ -75,19 +60,12 @@ public class EmployeeBean {
         this.salary = salary;
     }
 
+    @JSONPropertyIgnore
     public int getAge() {
         return age;
     }
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }
